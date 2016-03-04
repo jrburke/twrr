@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import { Router, Route, Link, browserHistory } from 'react-router';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+import { Router, Route, Link } from 'react-router';
+import { default as store, history } from './store';
 
 import User from './user.jsx';
 
@@ -13,6 +12,10 @@ var App = React.createClass({
       <div>
         <div>
           <h1>Welcome</h1>
+          <h2>{this.state.top.title}</h2>
+          <button onClick={
+            store.dispatch('top', { title: 'new thing'})
+          }>Change Top</button>
           <Link to={'/user'}>User</Link>
         </div>
         <div className="detail">
@@ -35,17 +38,6 @@ var NoMatch = React.createClass({
 
 
 // import reducers from './reducers'
-
-// Add the reducer to your store on the `routing` key
-const store = createStore(
-  combineReducers({
-    // ...reducers,
-    routing: routerReducer
-  })
-)
-
-// Create an enhanced history that syncs navigation events with the store
-const history = syncHistoryWithStore(browserHistory, store)
 
 ReactDOM.render(
   <Provider store={store}>

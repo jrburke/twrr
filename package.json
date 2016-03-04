@@ -4,7 +4,7 @@
   "description": "dev test using twitter API",
   "main": "app/main.js",
   "scripts": {
-    "dev": "webpack-dev-server --config webpack-dev.config.js --progress --inline --colors",
+    "dev": "webpack-dev-server -d --config webpack-dev.config.js --progress --inline --colors",
     "test": "npm test"
   },
   "repository": {

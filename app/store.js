@@ -3,11 +3,13 @@ import { syncHistoryWithStore, routerReducer, LOCATION_CHANGE } from 'react-rout
 import { createStore, applyMiddleware } from 'redux';
 
 const initialState = {
-  routing: {}
+  routing: {},
+  top: {}
 };
 
 var ignoredTypes = {
-  '@@redux/INIT': true
+  '@@redux/INIT': true,
+  '@@router/LOCATION_CHANGE': true
 };
 
 var reducers = {};
@@ -21,9 +23,11 @@ var reducer = function(state = initialState, action) {
   } else if (!ignoredTypes.hasOwnProperty(type)){
     throw new Error('No reducer for: ' + type);
   }
+  return state;
 };
 
-export default store = createStore(reducer);
+var store = createStore(reducer, initialState);
+export default store;
 
 // Create an enhanced history that syncs navigation events with the store
 export const history = syncHistoryWithStore(browserHistory, store)

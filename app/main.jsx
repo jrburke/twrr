@@ -2,9 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, Link } from 'react-router';
-import { default as store, history } from './store';
 
+import action from './action';
+import { default as store, history } from './store';
 import User from './user.jsx';
+
+function callTop() {
+  action('top', { title: 'new thing'});
+}
 
 var App = React.createClass({
   render() {
@@ -12,10 +17,8 @@ var App = React.createClass({
       <div>
         <div>
           <h1>Welcome</h1>
-          <h2>{this.state.top.title}</h2>
-          <button onClick={
-            store.dispatch('top', { title: 'new thing'})
-          }>Change Top</button>
+          <h2>{this.state && this.state.top.title}</h2>
+          <button onClick={callTop}>Change Top</button>
           <Link to={'/user'}>User</Link>
         </div>
         <div className="detail">

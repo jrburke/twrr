@@ -11,13 +11,24 @@ function callTop() {
   action('top', { title: 'new thing'});
 }
 
-var App = React.createClass({
+const mapStateToProps = (state) => {
+  return {
+    top: state.top
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+  };
+};
+
+var App = connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   render() {
     return (
       <div>
         <div>
           <h1>Welcome</h1>
-          <h2>{this.state && this.state.top.title}</h2>
+          <h2>{this.props.top.title + ' ' + this.props.top.counter }</h2>
           <button onClick={callTop}>Change Top</button>
           <Link to={'/user'}>User</Link>
         </div>
@@ -27,7 +38,7 @@ var App = React.createClass({
       </div>
     )
   }
-});
+}));
 
 var NoMatch = React.createClass({
   render() {

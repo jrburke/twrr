@@ -4,7 +4,10 @@ import { createStore, applyMiddleware } from 'redux';
 
 const initialState = {
   routing: {},
-  top: {}
+  top: {
+    title: 'init',
+    counter: -1
+  }
 };
 
 var ignoredTypes = {

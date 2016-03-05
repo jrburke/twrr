@@ -1,5 +1,5 @@
-var path = require("path");
-
+var path = require('path');
+var NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
 module.exports = {
   entry: {
     app: ["./app/main.jsx"]
@@ -17,6 +17,10 @@ module.exports = {
       }
     ]
   },
+
+  plugins: [
+    new NamedModulesPlugin()
+  ],
 
   output: {
     path: path.resolve(__dirname),

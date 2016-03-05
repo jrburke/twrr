@@ -1,44 +1,15 @@
+// Basic plumbing
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import { Router, Route, Link } from 'react-router';
 
-import action from './action';
+// model/store
 import { default as store, history } from './store';
+
+// UI components
+import Frame from './frame.jsx';
 import User from './user.jsx';
-
-function callTop() {
-  action('top', { title: 'new thing'});
-}
-
-const mapStateToProps = (state) => {
-  return {
-    top: state.top
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-  };
-};
-
-var App = connect(mapStateToProps, mapDispatchToProps)(React.createClass({
-  render() {
-    return (
-      <div>
-        <div>
-          <h1>Welcome</h1>
-          <h2>{this.props.top.title + ' ' + this.props.top.counter }</h2>
-          <button onClick={callTop}>Change Top</button>
-          <Link to={'/user'}>User</Link>
-        </div>
-        <div className="detail">
-          {this.props.children}
-        </div>
-      </div>
-    )
-  }
-}));
 
 var NoMatch = React.createClass({
   render() {
@@ -50,14 +21,11 @@ var NoMatch = React.createClass({
   }
 });
 
-
-// import reducers from './reducers'
-
 ReactDOM.render(
   <Provider store={store}>
     { /* Tell the Router to use our enhanced history */ }
     <Router history={history}>
-      <Route path="/" component={App}>
+      <Route path="/" component={Frame}>
         <Route path="user" component={User}/>
         <Route path="*" component={NoMatch}/>
       </Route>

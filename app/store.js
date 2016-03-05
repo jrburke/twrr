@@ -43,11 +43,17 @@ export function addReducer(type, fn) {
   reducers[type] = fn;
 };
 
+
 // Integrate the router history mechanism into this style of reducer dispatch.
 addReducer(LOCATION_CHANGE, function(state, action) {
-  return {
-    routing: routerReducer(state.routing, action)
-  };
+  var newRouteState = routerReducer(state.routing, action);
+  if (newRouteState === state.routing) {
+    return state;
+  } else {
+    return Object.assign({}, state, {
+      routing: newRouteState
+    });
+  }
 });
 
 // Shorthand for listeners.
